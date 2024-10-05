@@ -6,7 +6,7 @@ import { FilmCard } from "../FilmCard";
 import { listenNowAlbums, madeForYouAlbums } from "@/lib/data";
 import { motion } from "framer-motion";
 
-export const Home = () => {
+export const NewFilms = () => {
   return (
     <motion.section
       className="col-span-3 lg:col-span-4"
@@ -16,32 +16,11 @@ export const Home = () => {
       key={"home"}
     >
       <div className="h-full px-4 py-6 lg:px-8">
-        {/* <Tabs defaultValue="music" className="h-full space-y-6"> */}
-        {/* <div className="flex items-center space-between">
-            <TabsList>
-              <TabsTrigger value="music" className="relative">
-                Music
-              </TabsTrigger>
-              <TabsTrigger value="podcasts">Podcasts</TabsTrigger>
-              <TabsTrigger value="live" disabled>
-                Live
-              </TabsTrigger>
-            </TabsList>
-            <div className="ml-auto mr-4">
-              <Button>
-                <PlusCircledIcon className="w-4 h-4 mr-2" />
-                Add film
-              </Button>
-            </div>
-          </div> */}
-        {/* <TabsContent value="music" className="p-0 border-none outline-none"> */}
         <div className="flex items-center justify-between">
           <div className="space-y-1">
-            <h2 className="text-2xl font-semibold tracking-tight">
-              Best Films
-            </h2>
+            <h2 className="text-2xl font-semibold tracking-tight">New Films</h2>
             <p className="text-sm text-muted-foreground">
-              Best Films in the world
+              New items in all categories
             </p>
           </div>
         </div>
@@ -64,12 +43,7 @@ export const Home = () => {
           </ScrollArea>
         </div>
         <div className="mt-6 space-y-1">
-          <h2 className="text-2xl font-semibold tracking-tight">
-            New Releases
-          </h2>
-          <p className="text-sm text-muted-foreground">
-            New big releases, from allover the world!
-          </p>
+          <h2 className="text-2xl font-semibold tracking-tight">Comedy</h2>
         </div>
         <Separator className="my-4" />
         <div className="relative">
@@ -89,25 +63,48 @@ export const Home = () => {
             <ScrollBar orientation="horizontal" />
           </ScrollArea>
         </div>
-        {/* </TabsContent> */}
-        {/* <TabsContent
-            value="podcasts"
-            className="flex-col border-none p-0 data-[state=active]:flex"
-          > */}
-        {/* <div className="flex items-center justify-between">
-          <div className="space-y-1">
-            <h2 className="text-2xl font-semibold tracking-tight">
-              New Episodes
-            </h2>
-            <p className="text-sm text-muted-foreground">
-              Your favorite podcasts. Updated daily.
-            </p>
-          </div>
+        <div className="mt-6 space-y-1">
+          <h2 className="text-2xl font-semibold tracking-tight">Fantasy</h2>
         </div>
         <Separator className="my-4" />
-        <PodcastEmptyPlaceholder /> */}
-        {/* </TabsContent> */}
-        {/* </Tabs> */}
+        <div className="relative">
+          <ScrollArea>
+            <div className="flex pb-4 space-x-4">
+              {madeForYouAlbums.map((album) => (
+                <FilmCard
+                  key={album.name}
+                  album={album}
+                  className="w-[150px]"
+                  aspectRatio="square"
+                  width={150}
+                  height={150}
+                />
+              ))}
+            </div>
+            <ScrollBar orientation="horizontal" />
+          </ScrollArea>
+        </div>
+        <div className="mt-6 space-y-1">
+          <h2 className="text-2xl font-semibold tracking-tight">Triller</h2>
+        </div>
+        <Separator className="my-4" />
+        <div className="relative">
+          <ScrollArea>
+            <div className="flex pb-4 space-x-4">
+              {madeForYouAlbums.map((album) => (
+                <FilmCard
+                  key={album.name}
+                  album={album}
+                  className="w-[150px]"
+                  aspectRatio="square"
+                  width={150}
+                  height={150}
+                />
+              ))}
+            </div>
+            <ScrollBar orientation="horizontal" />
+          </ScrollArea>
+        </div>
       </div>
     </motion.section>
   );

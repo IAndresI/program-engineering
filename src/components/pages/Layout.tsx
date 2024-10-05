@@ -15,7 +15,7 @@ export const Layout = () => {
   }, [isSignedIn, isLoaded]);
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       <ClerkLoading>
         <motion.div
           className="fixed inset-0 z-10 flex items-center justify-center bg-background"

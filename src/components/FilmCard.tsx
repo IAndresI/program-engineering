@@ -5,21 +5,21 @@ import { cn } from "@/utils/helpers";
 import { Album } from "@/lib/data";
 import { Link } from "react-router-dom";
 
-interface AlbumArtworkProps extends React.HTMLAttributes<HTMLDivElement> {
+interface FilmCardProps extends React.HTMLAttributes<HTMLDivElement> {
   album: Album;
   aspectRatio?: "portrait" | "square";
   width?: number;
   height?: number;
 }
 
-export function AlbumArtwork({
+export function FilmCard({
   album,
   aspectRatio = "portrait",
   width,
   height,
   className,
   ...props
-}: AlbumArtworkProps) {
+}: FilmCardProps) {
   return (
     <div className={cn("space-y-3", className)} {...props}>
       <Link to="/film/1" className="block overflow-hidden rounded-md">
@@ -45,7 +45,10 @@ export function AlbumArtwork({
 
           <p className="text-xs text-muted-foreground">
             2024,{" "}
-            <Link to="/genres/1" className="transition hover:text-primary">
+            <Link
+              to="/films/genres/1"
+              className="transition hover:text-primary"
+            >
               comedy
             </Link>
           </p>

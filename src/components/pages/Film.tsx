@@ -4,7 +4,19 @@ import { Separator } from "@/components/ui/separator";
 import { madeForYouAlbums } from "@/lib/data";
 import { motion } from "framer-motion";
 import { CustomBreadcrumbs } from "../CustomBreadcrumbs";
-import { HeartIcon, StarFilledIcon, StarIcon } from "@radix-ui/react-icons";
+import {
+  BookmarkIcon,
+  PlayIcon,
+  StarFilledIcon,
+  StarIcon,
+} from "@radix-ui/react-icons";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { ActorCard } from "../ActorCard";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
@@ -43,13 +55,10 @@ const reviews = [
 export const Film = () => {
   const [, setRating] = useState(0);
 
-  // Catch Rating value
   const handleRating = (rate: number) => {
     setRating(rate);
-
-    // other logic
   };
-  // Optinal callback functions
+
   const onPointerEnter = () => console.log("Enter");
   const onPointerLeave = () => console.log("Leave");
   const onPointerMove = (value: number, index: number) =>
@@ -85,22 +94,54 @@ export const Film = () => {
                   <h1 className="text-4xl font-bold tracking-tight">
                     Oppenheimer
                   </h1>
-                  <Button className="p-0 h-11 w-11" variant="outline">
-                    <HeartIcon className="w-5 h-5" />
-                  </Button>
                 </div>
                 <div className="text-muted-foreground">
-                  2001 | Триллер | Биография | Драмма
+                  2001 | Thriller | Biography | Drama
                 </div>
                 <p className="text-muted-foreground">
-                  История жизни американского физика-теоретика Роберта
-                  Оппенгеймера, который во времена Второй мировой войны
-                  руководил Манхэттенским проектом — секретными разработками
-                  ядерного оружия.
+                  During World War II, Lt. Gen. Leslie Groves Jr. appoints
+                  physicist J. Robert Oppenheimer to work on the top-secret
+                  Manhattan Project. Oppenheimer and a team of scientists spend
+                  years developing and designing the atomic bomb. Their work
+                  comes to fruition on July 16, 1945, as they witness the
+                  world's first nuclear explosion, forever changing the course
+                  of history.
                 </p>
               </div>
-              <div className="flex items-center gap-1 text-5xl font-semibold">
-                <StarFilledIcon className="w-10 h-10 text-yellow-500" /> 9.5
+              <div className="flex gap-5">
+                <div className="flex items-center gap-1 text-5xl font-semibold">
+                  <StarFilledIcon className="w-10 h-10 text-yellow-500" /> 9.5
+                </div>
+
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button
+                      className="text-md flex h-full w-full max-w-[250px] gap-2"
+                      variant="outline"
+                    >
+                      <PlayIcon className="w-5 h-5" />
+                      Trailer
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="flex h-full max-h-[85svh] max-w-[85vw] flex-col">
+                    <DialogHeader>
+                      <DialogTitle className="text-3xl text-center">
+                        Oppenheimer
+                      </DialogTitle>
+                    </DialogHeader>
+
+                    <iframe
+                      className="w-full h-full"
+                      src="https://rutube.ru/play/embed/dc9a910e6cdffad772e0b69da2a98160"
+                      frameBorder="0"
+                      allow="clipboard-write; autoplay"
+                      allowFullScreen
+                    />
+                  </DialogContent>
+                </Dialog>
+                <Button className="w-12 h-full p-0" variant="outline">
+                  <BookmarkIcon className="w-6 h-6" />
+                </Button>
               </div>
             </div>
           </div>
@@ -132,7 +173,7 @@ export const Film = () => {
             Reviews
           </h2>
           <div className="grid grid-cols-[1fr,360px]">
-            <div className="grid border-r">
+            <div className="grid border-r h-fit">
               {reviews.map((review, i, arr) => (
                 <div className="grid gap-3" key={review.user}>
                   <div className="flex items-center justify-between">
@@ -182,7 +223,7 @@ export const Film = () => {
                 <div className="grid gap-2">
                   <Label htmlFor="review">Description</Label>
                   <Textarea
-                    className="h-[200px]"
+                    className="h-[200px] max-h-[500px]"
                     id="review"
                     placeholder="Please enter your review text."
                   />
