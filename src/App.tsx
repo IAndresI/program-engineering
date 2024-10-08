@@ -1,7 +1,5 @@
-import { SignedIn, UserButton, useUser } from "@clerk/clerk-react";
 import { Sidebar } from "./components/Sidebar";
-import { SvgLogo } from "./components/svg/SvgLogo";
-import { Link, Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { Home } from "./components/pages/Home";
 import { Film } from "./components/pages/Film";
 import { AnimatePresence } from "framer-motion";
@@ -11,27 +9,17 @@ import { UserFavorites } from "./components/pages/UserFavorites";
 import { Actors } from "./components/pages/Actors";
 import { Actor } from "./components/pages/Actor";
 import { UserReviews } from "./components/pages/UserReviews";
+import { Header } from "./components/Header";
+import { Search } from "./components/pages/Search";
 
 function App() {
-  const { user } = useUser();
   const location = useLocation();
 
   const locationArr = location.pathname?.split("/") ?? [];
-  console.log(user?.primaryEmailAddress?.emailAddress);
 
   return (
     <div className="hidden h-[100svh] flex-col md:flex">
-      <header className="flex justify-between">
-        <Link to="/" className="px-5 py-2 text-white">
-          <SvgLogo className="w-10 h-10" />
-        </Link>
-        <SignedIn>
-          <div className="flex items-center h-full gap-3 px-5 ml-auto border-l w-fit">
-            <UserButton />
-            <div>{`${user?.firstName} ${user?.lastName}`}</div>
-          </div>
-        </SignedIn>
-      </header>
+      <Header />
 
       <main className="grid flex-1 border-t bg-background lg:grid-cols-5">
         <Sidebar className="hidden border-r lg:block" />
@@ -44,6 +32,7 @@ function App() {
             <Route element={<Actor />} path="/actors/:id" />
             <Route element={<UserFavorites />} path="/favorites" />{" "}
             <Route element={<UserReviews />} path="/reviews" />
+            <Route element={<Search />} path="/search" />
             <Route
               element={<FilmCategory />}
               path="/films/genres/:categoryId"

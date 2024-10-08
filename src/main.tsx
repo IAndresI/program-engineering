@@ -10,16 +10,16 @@ import { Layout } from "./components/pages/Layout.tsx";
 
 const router = createBrowserRouter([
   {
-    path: "*",
+    path: "/authentication",
+    element: <AuthenticationPage />,
+  },
+  {
     element: <Layout />,
+    path: "*",
     children: [
       {
         path: "*",
         element: <App />,
-      },
-      {
-        path: "authentication",
-        element: <AuthenticationPage />,
       },
     ],
   },
