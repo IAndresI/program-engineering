@@ -22,7 +22,7 @@ export function ActorCard({
     <div className={cn("space-y-3", className)} {...props}>
       <Link to="/actors/1" className="block overflow-hidden rounded-[50%]">
         <img
-          src="https://via.placeholder.com/250x333"
+          src="https://placehold.co/250x333"
           alt={album.name}
           width={width}
           height={height}
@@ -33,7 +33,7 @@ export function ActorCard({
         />
       </Link>
 
-      <div className="flex justify-between text-sm h-max">
+      <div className="flex h-max justify-between text-sm">
         <div className="space-y-1">
           <Link to="/actors/1" className="transition hover:text-primary/50">
             <h3 className="font-medium leading-none">{album.name}</h3>

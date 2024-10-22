@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import { UserAuthForm } from "../UserAuthForm";
+import { UserAuthForm } from "@components/UserAuthForm";
 import { useUser } from "@clerk/clerk-react";
 import { useEffect } from "react";
-import { SvgLogo } from "../svg/SvgLogo";
+import { SvgLogo } from "@components/svg/SvgLogo";
 
 export const AuthenticationPage = () => {
   const { isSignedIn, isLoaded } = useUser();
@@ -44,17 +44,6 @@ export const AuthenticationPage = () => {
               </p>
             </div>
             <UserAuthForm />
-            {/* <p className="px-8 text-sm text-center text-muted-foreground">
-              By clicking continue, you agree to our{" "}
-              <span className="underline underline-offset-4 hover:text-primary">
-                Terms of Service
-              </span>{" "}
-              and{" "}
-              <span className="underline underline-offset-4 hover:text-primary">
-                Privacy Policy
-              </span>
-              .
-            </p> */}
           </div>
         </div>
       </div>

@@ -1,10 +1,10 @@
+import { CustomBreadcrumbs } from "@/components/CustomBreadcrumbs";
+import { FilmCard } from "@/components/FilmCard";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 
 import { madeForYouAlbums } from "@/lib/data";
 import { motion } from "framer-motion";
-import { CustomBreadcrumbs } from "../CustomBreadcrumbs";
-import { FilmCard } from "../FilmCard";
 
 export const Actor = () => {
   return (
@@ -27,7 +27,7 @@ export const Actor = () => {
         <div className="flex items-center justify-between">
           <div className="flex gap-8">
             <img
-              src="https://via.placeholder.com/250x333"
+              src="https://placehold.co/250x333"
               width={100}
               height={100}
               className={
@@ -66,7 +66,7 @@ export const Actor = () => {
         <Separator className="my-4" />
         <div className="relative">
           <ScrollArea>
-            <div className="flex pb-4 space-x-4">
+            <div className="flex space-x-4 pb-4">
               {madeForYouAlbums.map((album) => (
                 <FilmCard
                   key={album.name}

@@ -1,6 +1,6 @@
 import { Separator } from "@/components/ui/separator";
 
-import { FilmCard } from "../FilmCard";
+import { FilmCard } from "@components/FilmCard";
 
 import { listenNowAlbums } from "@/lib/data";
 import { motion } from "framer-motion";

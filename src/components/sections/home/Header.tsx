@@ -5,10 +5,9 @@ import {
   useNavigate,
   useSearchParams,
 } from "react-router-dom";
-import { SvgLogo } from "./svg/SvgLogo";
-import { Button } from "./ui/button";
+import { Button } from "../../ui/button";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
-import { Input } from "./ui/input";
+import { Input } from "../../ui/input";
 import { useEffect, useState } from "react";
 import {
   Drawer,
@@ -17,6 +16,9 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import { ModeToggle } from "@/components/ModeToggle";
+import { SidebarTrigger } from "@/components/ui/sidebar";
+const isAdmin = true;
 
 export const Header = () => {
   const { user } = useUser();
@@ -38,11 +40,16 @@ export const Header = () => {
   }, [location.search]);
 
   return (
-    <header className="flex justify-between">
-      <Link to="/" className="px-5 py-2 text-white">
-        <SvgLogo className="w-10 h-10" />
-      </Link>
+    <header className="flex h-[56px] justify-between">
+      <div className="flex items-center">
+        <SidebarTrigger className="ml-4" />
+      </div>
       <div className="flex items-center gap-5">
+        {isAdmin && (
+          <Button variant="secondary" asChild>
+            <Link to="/admin">Admin Panel</Link>
+          </Button>
+        )}
         <Drawer
           direction="top"
           open={isOpen}
@@ -50,17 +57,18 @@ export const Header = () => {
         >
           <DrawerTrigger asChild>
             <Button className="flex items-center gap-2 px-8" variant="default">
-              <MagnifyingGlassIcon className="w-5 h-5" />
+              <MagnifyingGlassIcon className="h-5 w-5" />
               Search
             </Button>
           </DrawerTrigger>
           <DrawerContent className="rounded-none">
-            <div className="w-full max-w-sm py-5 mx-auto">
+            <div className="mx-auto w-full max-w-sm py-5">
               <DrawerHeader>
-                <DrawerTitle className="text-3xl text-center">
+                <DrawerTitle className="text-center text-3xl">
                   Search
                 </DrawerTitle>
               </DrawerHeader>
+
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -83,14 +91,15 @@ export const Header = () => {
                   className="flex items-center gap-2 px-2"
                   variant="default"
                 >
-                  <MagnifyingGlassIcon className="w-6 h-6" />
+                  <MagnifyingGlassIcon className="h-6 w-6" />
                 </Button>
               </form>
             </div>
           </DrawerContent>
         </Drawer>
+        <ModeToggle />
         <SignedIn>
-          <div className="flex items-center h-full gap-3 px-5 ml-auto border-l w-fit">
+          <div className="ml-auto flex h-full w-fit items-center gap-3 border-l px-5">
             <UserButton />
             <div>{`${user?.firstName} ${user?.lastName}`}</div>
           </div>

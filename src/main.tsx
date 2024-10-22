@@ -1,25 +1,45 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App.tsx";
 import "./index.css";
 import { ClerkProvider } from "@clerk/clerk-react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
+import { HomeLayout } from "./components/layouts/HomeLayout.tsx";
+import { AuthLayout } from "./components/layouts/AuthLayout.tsx";
+import { AdminLayout } from "./components/layouts/AdminLayout.tsx";
 import { AuthenticationPage } from "./components/pages/AuthenticationPage.tsx";
-import { Layout } from "./components/pages/Layout.tsx";
+import { AdminPage } from "./components/pages/AdminPage.tsx";
+import { HomePage } from "./components/pages/HomePage.tsx";
+import { ThemeProvider } from "./components/layouts/ThemeProvider.tsx";
 
 const router = createBrowserRouter([
   {
-    path: "/authentication",
-    element: <AuthenticationPage />,
-  },
-  {
-    element: <Layout />,
     path: "*",
+    element: <AuthLayout />,
     children: [
       {
+        path: "authentication",
+        element: <AuthenticationPage />,
+      },
+      {
+        element: <AdminLayout />,
+        path: "admin/*",
+        children: [
+          {
+            path: "*",
+            element: <AdminPage />,
+          },
+        ],
+      },
+      {
+        element: <HomeLayout />,
         path: "*",
-        element: <App />,
+        children: [
+          {
+            path: "*",
+            element: <HomePage />,
+          },
+        ],
       },
     ],
   },
@@ -33,8 +53,10 @@ if (!PUBLISHABLE_KEY) {
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
-      <RouterProvider router={router} />
-    </ClerkProvider>
+    <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
+      <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
+        <RouterProvider router={router} />
+      </ClerkProvider>
+    </ThemeProvider>
   </StrictMode>,
 );

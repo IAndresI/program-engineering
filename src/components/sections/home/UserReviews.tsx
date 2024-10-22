@@ -1,6 +1,6 @@
 import { Separator } from "@/components/ui/separator";
 import { motion } from "framer-motion";
-import { Button } from "../ui/button";
+import { Button } from "@components/ui/button";
 import { Link } from "react-router-dom";
 import { StarFilledIcon } from "@radix-ui/react-icons";
 
@@ -28,10 +28,10 @@ export const UserReviews = () => {
         <div className="grid gap-5 pb-4">
           {reviews.map((review, i, arr) => (
             <div>
-              <div className="flex justify-between mb-3 text-xl font-semibold">
+              <div className="mb-3 flex justify-between text-xl font-semibold">
                 Oppenheimer{" "}
                 <div className="flex items-center gap-1 font-semibold">
-                  <StarFilledIcon className="w-5 h-5 text-yellow-500" /> 9.5
+                  <StarFilledIcon className="h-5 w-5 text-yellow-500" /> 9.5
                 </div>
               </div>
               <div className="flex gap-5" key={review}>
@@ -41,7 +41,7 @@ export const UserReviews = () => {
                     className="block overflow-hidden rounded-md"
                   >
                     <img
-                      src="https://via.placeholder.com/250x333"
+                      src="https://placehold.co/250x333"
                       alt={"film"}
                       width={150}
                       height={200}

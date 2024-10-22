@@ -2,7 +2,7 @@ import { Separator } from "@/components/ui/separator";
 
 import { madeForYouAlbums } from "@/lib/data";
 import { motion } from "framer-motion";
-import { ActorCard } from "../ActorCard";
+import { ActorCard } from "@components/ActorCard";
 
 export const Actors = () => {
   return (

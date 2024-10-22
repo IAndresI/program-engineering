@@ -1,17 +1,17 @@
 import { Separator } from "@/components/ui/separator";
 
-import { FilmCard } from "../FilmCard";
+import { FilmCard } from "@components/FilmCard";
 
 import { madeForYouAlbums } from "@/lib/data";
 import { motion } from "framer-motion";
 import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
+import { Input } from "@components/ui/input";
+import { Button } from "@components/ui/button";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
-import { ScrollBar } from "../ui/scroll-area";
+import { ScrollBar } from "@components/ui/scroll-area";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
-import { ActorCard } from "../ActorCard";
+import { ActorCard } from "@components/ActorCard";
 
 export const Search = () => {
   const [searchParams, setSearchParams] = useSearchParams();

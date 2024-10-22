@@ -2,9 +2,9 @@ import { ClerkLoaded, ClerkLoading, useUser } from "@clerk/clerk-react";
 import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { SvgLogo } from "../svg/SvgLogo";
+import { SvgLogo } from "@components/svg/SvgLogo";
 
-export const Layout = () => {
+export const AuthLayout = () => {
   const { isSignedIn, isLoaded } = useUser();
   const navigate = useNavigate();
 
