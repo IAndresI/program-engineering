@@ -2,7 +2,7 @@ import * as React from "react";
 import { cn } from "@/utils/helpers";
 import { Button } from "./ui/button";
 import { SignedOut, useClerk } from "@clerk/clerk-react";
-import { SvgGmail } from "./svg/SvgGmail";
+import { SvgGmail } from "./ui/svg/SvgGmail";
 
 export function UserAuthForm({
   className,
@@ -21,7 +21,7 @@ export function UserAuthForm({
         <div className="grid gap-2">
           <SignedOut>
             <Button type="submit">
-              <SvgGmail className="w-4 h-4 mr-2" /> Sign In with Gmail
+              <SvgGmail className="mr-2 h-4 w-4" /> Sign In with Gmail
             </Button>
           </SignedOut>
         </div>

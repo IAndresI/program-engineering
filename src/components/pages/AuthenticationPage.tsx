@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { UserAuthForm } from "@components/UserAuthForm";
 import { useUser } from "@clerk/clerk-react";
 import { useEffect } from "react";
-import { SvgLogo } from "@components/svg/SvgLogo";
+import { SvgLogo } from "@/components/ui/svg/SvgLogo";
 
 export const AuthenticationPage = () => {
   const { isSignedIn, isLoaded } = useUser();
@@ -16,10 +16,10 @@ export const AuthenticationPage = () => {
   return (
     <>
       <div className="container relative grid min-h-[100svh] flex-col items-center justify-center lg:max-w-none lg:grid-cols-2 lg:px-0">
-        <div className="relative flex-col hidden h-full p-10 text-white bg-muted dark:border-r lg:flex">
+        <div className="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex">
           <div className="absolute inset-0 bg-zinc-900" />
           <div className="relative z-20 flex items-center text-lg font-medium">
-            <SvgLogo className="w-6 h-6 mr-2" />
+            <SvgLogo className="mr-2 h-6 w-6" />
             Фильмотека
           </div>
           <div className="relative z-20 mt-auto">

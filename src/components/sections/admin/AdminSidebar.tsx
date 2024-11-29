@@ -1,30 +1,30 @@
 import { cn } from "@/utils/helpers";
 import { NavLink } from "react-router-dom";
 import { BookmarkIcon } from "@radix-ui/react-icons";
-import { SvgFire } from "../../svg/SvgFire";
-import { SvgActor } from "../../svg/SvgActor";
-import { SvgReview } from "../../svg/SvgReview";
+import { SvgFire } from "../../ui/svg/SvgFire";
+import { SvgActor } from "../../ui/svg/SvgActor";
+import { SvgReview } from "../../ui/svg/SvgReview";
 
 const films = [
   {
     label: "Films",
     link: "films",
-    icon: <SvgFire className="w-4 h-4 mr-2" />,
+    icon: <SvgFire className="mr-2 h-4 w-4" />,
   },
   {
     label: "Users",
     link: "favorites",
-    icon: <BookmarkIcon className="w-4 h-4 mr-2" />,
+    icon: <BookmarkIcon className="mr-2 h-4 w-4" />,
   },
   {
     label: "Actors",
     link: "actors",
-    icon: <SvgActor className="w-4 h-4 mr-2" />,
+    icon: <SvgActor className="mr-2 h-4 w-4" />,
   },
   {
     label: "Reviews",
     link: "reviews",
-    icon: <SvgReview className="w-4 h-4 mr-2" />,
+    icon: <SvgReview className="mr-2 h-4 w-4" />,
   },
 ];
 
@@ -33,9 +33,9 @@ export function AdminSidebar({
 }: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <aside className={cn("pb-12", className)}>
-      <div className="py-4 space-y-4">
+      <div className="space-y-4 py-4">
         <div className="px-3 py-2">
-          <h2 className="px-4 mb-2 text-lg font-semibold tracking-tight">
+          <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
             Data
           </h2>
           <div className="space-y-1">

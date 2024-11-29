@@ -1,6 +1,6 @@
 import { Route, Routes, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
-import { FilmsTable } from "../sections/admin/FilmsTable";
+import { AdminFilms } from "../sections/admin/AdminFilms";
 
 export const AdminPage = () => {
   const location = useLocation();
@@ -11,7 +11,7 @@ export const AdminPage = () => {
     <AnimatePresence mode="wait">
       <Routes location={location} key={locationArr[1]}>
         <Route element={<div>Admin</div>} path="/" />
-        <Route element={<FilmsTable />} path="/films" />
+        <Route element={<AdminFilms />} path="/films" />
       </Routes>
     </AnimatePresence>
   );

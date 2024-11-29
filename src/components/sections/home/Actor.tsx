@@ -27,7 +27,7 @@ export const Actor = () => {
         <div className="flex items-center justify-between">
           <div className="flex gap-8">
             <img
-              src="https://placehold.co/250x333"
+              src="https://placehold.jp/250x333.png"
               width={100}
               height={100}
               className={

@@ -1,6 +1,6 @@
 import { SignedIn, UserButton, useUser } from "@clerk/clerk-react";
 import { Link } from "react-router-dom";
-import { SvgLogo } from "../../svg/SvgLogo";
+import { SvgLogo } from "../../ui/svg/SvgLogo";
 import { Button } from "../../ui/button";
 import { ModeToggle } from "@/components/ModeToggle";
 

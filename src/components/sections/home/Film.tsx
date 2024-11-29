@@ -80,7 +80,7 @@ export const Film = () => {
         <div className="flex items-center justify-between">
           <div className="flex gap-8">
             <img
-              src="https://placehold.co/250x333"
+              src="https://placehold.jp/250x333.png"
               width={250}
               height={330}
               className={
@@ -110,7 +110,7 @@ export const Film = () => {
               </div>
               <div className="flex gap-5">
                 <div className="flex items-center gap-1 text-5xl font-semibold">
-                  <StarFilledIcon className="h-10 w-10 text-yellow-500" /> 9.5
+                  <StarFilledIcon className="w-10 h-10 text-yellow-500" /> 9.5
                 </div>
 
                 <Dialog>
@@ -119,19 +119,19 @@ export const Film = () => {
                       className="text-md flex h-full w-full max-w-[250px] gap-2"
                       variant="outline"
                     >
-                      <PlayIcon className="h-5 w-5" />
+                      <PlayIcon className="w-5 h-5" />
                       Trailer
                     </Button>
                   </DialogTrigger>
                   <DialogContent className="flex h-full max-h-[85svh] max-w-[85vw] flex-col">
                     <DialogHeader>
-                      <DialogTitle className="text-center text-3xl">
+                      <DialogTitle className="text-3xl text-center">
                         Oppenheimer
                       </DialogTitle>
                     </DialogHeader>
 
                     <iframe
-                      className="h-full w-full"
+                      className="w-full h-full"
                       src="https://rutube.ru/play/embed/dc9a910e6cdffad772e0b69da2a98160"
                       frameBorder="0"
                       allow="clipboard-write; autoplay"
@@ -139,8 +139,8 @@ export const Film = () => {
                     />
                   </DialogContent>
                 </Dialog>
-                <Button className="h-full w-12 p-0" variant="outline">
-                  <BookmarkIcon className="h-6 w-6" />
+                <Button className="w-12 h-full p-0" variant="outline">
+                  <BookmarkIcon className="w-6 h-6" />
                 </Button>
               </div>
             </div>
@@ -152,7 +152,7 @@ export const Film = () => {
         </div>
         <div className="relative">
           <ScrollArea>
-            <div className="flex space-x-4 pb-4">
+            <div className="flex pb-4 space-x-4">
               {madeForYouAlbums.map((album) => (
                 <ActorCard
                   key={album.name}
@@ -173,13 +173,13 @@ export const Film = () => {
             Reviews
           </h2>
           <div className="grid grid-cols-[1fr,360px]">
-            <div className="grid h-fit border-r">
+            <div className="grid border-r h-fit">
               {reviews.map((review, i, arr) => (
                 <div className="grid gap-3" key={review.user}>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <img
-                        src="https://placehold.co/50x50"
+                        src="https://placehold.jp/50x50"
                         alt={review.user}
                         width={40}
                         height={40}
@@ -190,7 +190,7 @@ export const Film = () => {
                       <div className="font-medium">{review.user}</div>
                     </div>
                     <div className="flex items-center gap-1 pr-5 font-semibold">
-                      <StarFilledIcon className="h-4 w-4 text-yellow-500" /> 9.5
+                      <StarFilledIcon className="w-4 h-4 text-yellow-500" /> 9.5
                     </div>
                   </div>
                   <p className="pr-5 text-sm text-muted-foreground">
@@ -207,9 +207,9 @@ export const Film = () => {
               <form className="grid gap-4">
                 <div className="flex">
                   <Rating
-                    emptyIcon={<StarIcon className="inline-block h-8 w-8" />}
+                    emptyIcon={<StarIcon className="inline-block w-8 h-8" />}
                     fillIcon={
-                      <StarFilledIcon className="inline-block h-8 w-8" />
+                      <StarFilledIcon className="inline-block w-8 h-8" />
                     }
                     iconsCount={10}
                     transition

@@ -41,7 +41,7 @@ export const UserReviews = () => {
                     className="block overflow-hidden rounded-md"
                   >
                     <img
-                      src="https://placehold.co/250x333"
+                      src="https://placehold.jp/250x333.png"
                       alt={"film"}
                       width={150}
                       height={200}
