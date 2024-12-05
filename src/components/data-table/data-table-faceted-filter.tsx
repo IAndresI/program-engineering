@@ -3,8 +3,8 @@ import { CheckIcon, PlusCircledIcon } from "@radix-ui/react-icons";
 import { Column } from "@tanstack/react-table";
 
 import { cn } from "@/lib/utils";
-import { Badge } from "../badge";
-import { Button } from "../button";
+import { Badge } from "../ui/badge";
+import { Button } from "../ui/button";
 import {
   Command,
   CommandEmpty,
@@ -13,11 +13,11 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from "../command";
-import { Popover, PopoverContent, PopoverTrigger } from "../popover";
-import { Separator } from "../separator";
+} from "../ui/command";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { Separator } from "../ui/separator";
 
-interface TableFacetedFilterProps<TData, TValue> {
+interface DataTableFacetedFilterProps<TData, TValue> {
   column?: Column<TData, TValue>;
   title?: string;
   options: {
@@ -27,11 +27,11 @@ interface TableFacetedFilterProps<TData, TValue> {
   }[];
 }
 
-export function TableFacetedFilter<TData, TValue>({
+export function DataTableFacetedFilter<TData, TValue>({
   column,
   title,
   options,
-}: TableFacetedFilterProps<TData, TValue>) {
+}: DataTableFacetedFilterProps<TData, TValue>) {
   const facets = column?.getFacetedUniqueValues();
   const selectedValues = new Set(column?.getFilterValue() as string[]);
 
@@ -39,14 +39,14 @@ export function TableFacetedFilter<TData, TValue>({
     <Popover>
       <PopoverTrigger asChild>
         <Button variant="outline" size="sm" className="h-8 border-dashed">
-          <PlusCircledIcon className="w-4 h-4 mr-2" />
+          <PlusCircledIcon className="mr-2 h-4 w-4" />
           {title}
           {selectedValues?.size > 0 && (
             <>
-              <Separator orientation="vertical" className="h-4 mx-2" />
+              <Separator orientation="vertical" className="mx-2 h-4" />
               <Badge
                 variant="secondary"
-                className="px-1 font-normal rounded-sm lg:hidden"
+                className="rounded-sm px-1 font-normal lg:hidden"
               >
                 {selectedValues.size}
               </Badge>
@@ -54,7 +54,7 @@ export function TableFacetedFilter<TData, TValue>({
                 {selectedValues.size > 2 ? (
                   <Badge
                     variant="secondary"
-                    className="px-1 font-normal rounded-sm"
+                    className="rounded-sm px-1 font-normal"
                   >
                     {selectedValues.size} selected
                   </Badge>
@@ -65,7 +65,7 @@ export function TableFacetedFilter<TData, TValue>({
                       <Badge
                         variant="secondary"
                         key={option.value}
-                        className="px-1 font-normal rounded-sm"
+                        className="rounded-sm px-1 font-normal"
                       >
                         {option.label}
                       </Badge>
@@ -110,11 +110,11 @@ export function TableFacetedFilter<TData, TValue>({
                       <CheckIcon className={cn("h-4 w-4")} />
                     </div>
                     {option.icon && (
-                      <option.icon className="w-4 h-4 mr-2 text-muted-foreground" />
+                      <option.icon className="mr-2 h-4 w-4 text-muted-foreground" />
                     )}
                     <span>{option.label}</span>
                     {facets?.get(option.value) && (
-                      <span className="flex items-center justify-center w-4 h-4 ml-auto font-mono text-xs">
+                      <span className="ml-auto flex h-4 w-4 items-center justify-center font-mono text-xs">
                         {facets.get(option.value)}
                       </span>
                     )}

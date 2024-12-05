@@ -67,12 +67,12 @@ export const Search = () => {
           />
           <Button
             type="submit"
-            className="flex items-center gap-2 px-2"
+            className="flex items-center gap-2 px-3"
             variant="default"
           >
             <MagnifyingGlassIcon className="w-6 h-6" />
           </Button>
-        </form>{" "}
+        </form>
         <Separator className="mb-4" />
         <div className="mt-6 space-y-1">
           <h2 className="text-2xl font-semibold tracking-tight">Actors</h2>

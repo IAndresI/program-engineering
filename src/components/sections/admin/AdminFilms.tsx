@@ -1,8 +1,14 @@
-import { columns } from "@/components/tables/films/columns";
-import { FilmsTable } from "@/components/tables/films/films-table";
+import { filmsTableColumns } from "@/components/tables/films/films-table-columns";
+import { DataTable } from "@/components/data-table/data-table";
 import { Separator } from "@/components/ui/separator";
 import { IFilm } from "@/types/IFilm";
 import { motion } from "framer-motion";
+import { useState } from "react";
+import {
+  ColumnFiltersState,
+  PaginationState,
+  SortingState,
+} from "@tanstack/react-table";
 
 const tempFilms: IFilm[] = [
   {
@@ -12,15 +18,38 @@ const tempFilms: IFilm[] = [
     description: "sd",
     image: "https://placehold.jp/250x333.png",
     genres: [
-      { id: 1, name: "Thriller", image: "https://placehold.jp/250x333.png" },
-      { id: 2, name: "Historical", image: "https://placehold.jp/250x333.png" },
-      { id: 3, name: "Horror", image: "https://placehold.jp/250x333.png" },
+      { id: 2, name: "Thriller", image: "https://placehold.jp/250x333.png" },
+      { id: 3, name: "Historical", image: "https://placehold.jp/250x333.png" },
+      { id: 4, name: "Horror", image: "https://placehold.jp/250x333.png" },
     ],
     release_date: "2023-10-10",
     created_at: "2024-05-05",
     actors: [
       {
-        id: 1,
+        id: 5,
+        name: "Keanu reavse",
+        image: "https://placehold.jp/250x333.png",
+        description: "sdfasda",
+        birthday: "1986-05-05",
+      },
+    ],
+    trailer_link: "https://placehold.jp/250x333.png",
+  },
+  {
+    id: 6,
+    name: "Bad Boys",
+    rating: 8.5,
+    description: "boys",
+    image: "https://placehold.jp/250x333.png",
+    genres: [
+      { id: 7, name: "Dramma", image: "https://placehold.jp/250x333.png" },
+      { id: 8, name: "Comedy", image: "https://placehold.jp/250x333.png" },
+    ],
+    release_date: "2020-08-23",
+    created_at: "2023-11-16",
+    actors: [
+      {
+        id: 9,
         name: "Keanu reavse",
         image: "https://placehold.jp/250x333.png",
         description: "sdfasda",
@@ -32,13 +61,19 @@ const tempFilms: IFilm[] = [
 ];
 
 export const AdminFilms = () => {
+  const [pagination, setPagination] = useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: 10,
+  });
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [sorting, setSorting] = useState<SortingState>([]);
   return (
     <motion.section
       className="col-span-3 lg:col-span-4"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1, transition: { duration: 0.2 } }}
       exit={{ opacity: 0, transition: { duration: 0.2 } }}
-      key={"home"}
+      key={"admin_films"}
     >
       <div className="h-full px-4 py-6 lg:px-8">
         <div className="flex items-center justify-between">
@@ -48,7 +83,16 @@ export const AdminFilms = () => {
         </div>
         <Separator className="my-4" />
 
-        <FilmsTable columns={columns} data={tempFilms} />
+        <DataTable
+          sorting={sorting}
+          onSortingChange={setSorting}
+          columnFilters={columnFilters}
+          onColumnFiltersChange={setColumnFilters}
+          pagination={pagination}
+          onPaginationChange={setPagination}
+          columns={filmsTableColumns}
+          data={tempFilms}
+        />
       </div>
     </motion.section>
   );

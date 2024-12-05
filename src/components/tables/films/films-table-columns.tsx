@@ -1,25 +1,31 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { TableColumnHeader } from "./table-column-header";
-import { TableRowActions } from "./table-row-actions";
+import { DataTableColumnHeader } from "../../data-table/data-table-column-header";
+import { DataTableRowActions } from "../../data-table/data-table-row-actions";
 import { IFilm } from "@/types/IFilm";
 import { IGenre } from "@/types/IGenre";
 import { Badge } from "@/components/ui/badge";
+import { DeleteModal } from "@/components/modals/DeleteModal";
+import { FilmEditModal } from "@/components/modals/films/FilmEditModal";
 
-export const columns: ColumnDef<IFilm>[] = [
+export const filmsTableColumns: ColumnDef<IFilm>[] = [
   {
     accessorKey: "id",
-    header: ({ column }) => <TableColumnHeader column={column} title="ID" />,
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="ID" />
+    ),
     cell: ({ row }) => <div>{row.getValue("id")}</div>,
     enableSorting: false,
     enableHiding: false,
   },
   {
     accessorKey: "image",
-    header: ({ column }) => <TableColumnHeader column={column} title="Image" />,
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Image" />
+    ),
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <img className="w-10 h-10 rounded" src={row.getValue("image")} />
+          <img className="h-10 w-10 rounded" src={row.getValue("image")} />
         </div>
       );
     },
@@ -27,7 +33,9 @@ export const columns: ColumnDef<IFilm>[] = [
   },
   {
     accessorKey: "name",
-    header: ({ column }) => <TableColumnHeader column={column} title="Name" />,
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Name" />
+    ),
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
@@ -41,7 +49,7 @@ export const columns: ColumnDef<IFilm>[] = [
   {
     accessorKey: "description",
     header: ({ column }) => (
-      <TableColumnHeader column={column} title="Description" />
+      <DataTableColumnHeader column={column} title="Description" />
     ),
     cell: ({ row }) => {
       return (
@@ -55,8 +63,9 @@ export const columns: ColumnDef<IFilm>[] = [
   },
   {
     accessorKey: "genres",
+    enableSorting: false,
     header: ({ column }) => (
-      <TableColumnHeader column={column} title="Genres" />
+      <DataTableColumnHeader column={column} title="Genres" />
     ),
     cell: ({ row }) => {
       const genres = row.getValue("genres") as IGenre[];
@@ -78,27 +87,39 @@ export const columns: ColumnDef<IFilm>[] = [
   {
     accessorKey: "release_date",
     header: ({ column }) => (
-      <TableColumnHeader column={column} title="Release date" />
+      <DataTableColumnHeader column={column} title="Release date" />
     ),
     cell: ({ row }) => {
       return (
         <div className="flex items-center">{row.getValue("release_date")}</div>
       );
     },
-    enableSorting: false,
   },
   {
     accessorKey: "rating",
     header: ({ column }) => (
-      <TableColumnHeader column={column} title="Rating" />
+      <DataTableColumnHeader column={column} title="Rating" />
     ),
     cell: ({ row }) => {
       return <div className="flex items-center">{row.getValue("rating")}</div>;
     },
-    enableSorting: false,
   },
   {
     id: "actions",
-    cell: ({ row }) => <TableRowActions row={row} />,
+    cell: ({ row }) => (
+      <DataTableRowActions
+        deleteModal={
+          <DeleteModal
+            title="Deleting film"
+            description="Are you sure want to delete this film?"
+            onDelete={() => {
+              console.log("deleted");
+            }}
+          />
+        }
+        editModal={<FilmEditModal film={row.original} />}
+        row={row}
+      />
+    ),
   },
 ];

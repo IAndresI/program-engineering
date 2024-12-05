@@ -28,17 +28,17 @@ export const CustomBreadcrumbs = ({
         {crumbs.map((crumb) =>
           crumb.link ? (
             <>
-              <BreadcrumbItem>
+              <BreadcrumbItem key={crumb.label}>
                 <BreadcrumbLink asChild>
                   <Link to={crumb.link}>{crumb.label}</Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
-              <BreadcrumbSeparator>
+              <BreadcrumbSeparator key={`${crumb.label}_separator`}>
                 <SlashIcon />
               </BreadcrumbSeparator>
             </>
           ) : (
-            <BreadcrumbItem>
+            <BreadcrumbItem key={crumb.label}>
               <BreadcrumbPage>{crumb.label}</BreadcrumbPage>
             </BreadcrumbItem>
           ),

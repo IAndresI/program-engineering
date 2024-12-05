@@ -1,15 +1,14 @@
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { Row } from "@tanstack/react-table";
 
-import { Button } from "../../ui/button";
+import { Button } from "../ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuTrigger,
-} from "../../ui/dropdown-menu";
+} from "../ui/dropdown-menu";
 
 interface Task {
   id: string;
@@ -19,11 +18,17 @@ interface Task {
   priority: string;
 }
 
-interface TableRowActionsProps<TData> {
+interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
+  editModal: JSX.Element;
+  deleteModal: JSX.Element;
 }
 
-export function TableRowActions<TData>({ row }: TableRowActionsProps<TData>) {
+export function DataTableRowActions<TData>({
+  row,
+  editModal,
+  deleteModal,
+}: DataTableRowActionsProps<TData>) {
   const task = row.original as Task;
 
   return (
@@ -37,13 +42,10 @@ export function TableRowActions<TData>({ row }: TableRowActionsProps<TData>) {
           <span className="sr-only">Open menu</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-[160px]">
-        <DropdownMenuItem>Edit {task.id}</DropdownMenuItem>
+      <DropdownMenuContent id={task.id} align="end" className="w-[160px]">
+        <DropdownMenuItem asChild>{editModal}</DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          Delete
-          <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
-        </DropdownMenuItem>
+        <DropdownMenuItem asChild>{deleteModal}</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

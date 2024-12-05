@@ -1,7 +1,9 @@
-import * as React from "react";
+import { useEffect, useState } from "react";
 import {
   ColumnDef,
   ColumnFiltersState,
+  OnChangeFn,
+  PaginationState,
   SortingState,
   VisibilityState,
   flexRender,
@@ -13,7 +15,6 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-
 import {
   Table,
   TableBody,
@@ -21,41 +22,48 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "../../ui/table/table";
-
-import { TablePagination } from "../../ui/table/table-pagination";
-import { TableToolbar } from "./table-toolbar";
+} from "@/components/ui/table";
+import { DataTablePagination } from "@/components/data-table/data-table-pagination";
+import { DataTableToolbar } from "@/components/data-table/data-table-toolbar";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  pagination: PaginationState;
+  onPaginationChange: OnChangeFn<PaginationState>;
+  columnFilters: ColumnFiltersState;
+  onColumnFiltersChange: OnChangeFn<ColumnFiltersState>;
+  sorting: SortingState;
+  onSortingChange: OnChangeFn<SortingState>;
 }
 
-export function FilmsTable<TData, TValue>({
+export function DataTable<TData, TValue>({
   columns,
   data,
+  pagination,
+  onPaginationChange,
+  columnFilters,
+  onColumnFiltersChange,
+  sorting,
+  onSortingChange,
 }: DataTableProps<TData, TValue>) {
-  const [rowSelection, setRowSelection] = React.useState({});
-  const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({});
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    [],
-  );
-  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
 
   const table = useReactTable({
     data,
     columns,
     state: {
       sorting,
-      columnVisibility,
-      rowSelection,
       columnFilters,
+      pagination,
+      columnVisibility,
     },
-    enableRowSelection: true,
-    onRowSelectionChange: setRowSelection,
-    onSortingChange: setSorting,
-    onColumnFiltersChange: setColumnFilters,
+    manualSorting: true,
+    manualFiltering: true,
+    manualPagination: true,
+    onSortingChange,
+    onColumnFiltersChange,
+    onPaginationChange,
     onColumnVisibilityChange: setColumnVisibility,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
@@ -65,9 +73,13 @@ export function FilmsTable<TData, TValue>({
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
 
+  useEffect(() => {
+    console.log(columnFilters, sorting, pagination);
+  }, [columnFilters, sorting, pagination]);
+
   return (
     <div className="space-y-4">
-      <TableToolbar table={table} />
+      <DataTableToolbar table={table} />
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -118,7 +130,7 @@ export function FilmsTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <TablePagination table={table} />
+      <DataTablePagination table={table} />
     </div>
   );
 }

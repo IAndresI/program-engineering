@@ -1,17 +1,18 @@
 import { Route, Routes, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { AdminFilms } from "../sections/admin/AdminFilms";
+import { AdminUsers } from "../sections/admin/AdminUsers";
+import { AdminHome } from "../sections/admin/AdminHome";
 
 export const AdminPage = () => {
   const location = useLocation();
 
-  const locationArr = location.pathname?.split("/") ?? [];
-
   return (
     <AnimatePresence mode="wait">
-      <Routes location={location} key={locationArr[1]}>
-        <Route element={<div>Admin</div>} path="/" />
+      <Routes location={location} key={location.pathname}>
+        <Route element={<AdminHome />} path="/" />
         <Route element={<AdminFilms />} path="/films" />
+        <Route element={<AdminUsers />} path="/users" />
       </Routes>
     </AnimatePresence>
   );

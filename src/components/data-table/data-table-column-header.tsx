@@ -13,20 +13,20 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../../ui/dropdown-menu";
-import { Button } from "../../ui/button";
+} from "../ui/dropdown-menu";
+import { Button } from "../ui/button";
 
-interface TableColumnHeaderProps<TData, TValue>
+interface DataTableColumnHeaderProps<TData, TValue>
   extends React.HTMLAttributes<HTMLDivElement> {
   column: Column<TData, TValue>;
   title: string;
 }
 
-export function TableColumnHeader<TData, TValue>({
+export function DataTableColumnHeader<TData, TValue>({
   column,
   title,
   className,
-}: TableColumnHeaderProps<TData, TValue>) {
+}: DataTableColumnHeaderProps<TData, TValue>) {
   if (!column.getCanSort()) {
     return <div className={cn(className)}>{title}</div>;
   }
@@ -42,11 +42,11 @@ export function TableColumnHeader<TData, TValue>({
           >
             <span>{title}</span>
             {column.getIsSorted() === "desc" ? (
-              <ArrowDownIcon className="w-4 h-4 ml-2" />
+              <ArrowDownIcon className="ml-2 h-4 w-4" />
             ) : column.getIsSorted() === "asc" ? (
-              <ArrowUpIcon className="w-4 h-4 ml-2" />
+              <ArrowUpIcon className="ml-2 h-4 w-4" />
             ) : (
-              <CaretSortIcon className="w-4 h-4 ml-2" />
+              <CaretSortIcon className="ml-2 h-4 w-4" />
             )}
           </Button>
         </DropdownMenuTrigger>

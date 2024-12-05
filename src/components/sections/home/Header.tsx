@@ -56,15 +56,15 @@ export const Header = () => {
           onOpenChange={(isOpen) => setIsOpen(isOpen)}
         >
           <DrawerTrigger asChild>
-            <Button className="flex items-center gap-2 px-8" variant="default">
-              <MagnifyingGlassIcon className="h-5 w-5" />
+            <Button className="flex items-center gap-2 px-5" variant="default">
+              <MagnifyingGlassIcon className="w-5 h-5" />
               Search
             </Button>
           </DrawerTrigger>
           <DrawerContent className="rounded-none">
-            <div className="mx-auto w-full max-w-sm py-5">
+            <div className="w-full max-w-sm py-5 mx-auto">
               <DrawerHeader>
-                <DrawerTitle className="text-center text-3xl">
+                <DrawerTitle className="text-3xl text-center">
                   Search
                 </DrawerTitle>
               </DrawerHeader>
@@ -91,7 +91,7 @@ export const Header = () => {
                   className="flex items-center gap-2 px-2"
                   variant="default"
                 >
-                  <MagnifyingGlassIcon className="h-6 w-6" />
+                  <MagnifyingGlassIcon className="w-6 h-6" />
                 </Button>
               </form>
             </div>
@@ -99,7 +99,7 @@ export const Header = () => {
         </Drawer>
         <ModeToggle />
         <SignedIn>
-          <div className="ml-auto flex h-full w-fit items-center gap-3 border-l px-5">
+          <div className="flex items-center h-full gap-3 px-5 ml-auto border-l w-fit">
             <UserButton />
             <div>{`${user?.firstName} ${user?.lastName}`}</div>
           </div>
