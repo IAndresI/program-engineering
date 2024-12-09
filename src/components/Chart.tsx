@@ -1,4 +1,4 @@
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
+import { Bar, BarChart, XAxis, YAxis } from "recharts";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "./ui/chart";
 import { type ChartConfig } from "@/components/ui/chart";
 

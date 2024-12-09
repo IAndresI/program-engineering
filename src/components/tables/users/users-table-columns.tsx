@@ -1,6 +1,5 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTableColumnHeader } from "../../data-table/data-table-column-header";
-import { DataTableRowActions } from "../../data-table/data-table-row-actions";
 import { IUser } from "@/types/IUser";
 
 export const usersTableColumns: ColumnDef<IUser>[] = [
@@ -30,7 +29,7 @@ export const usersTableColumns: ColumnDef<IUser>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <img className="h-10 w-10 rounded" src={row.getValue("avatar")} />
+          <img className="w-10 h-10 rounded" src={row.getValue("avatar")} />
         </div>
       );
     },
@@ -81,8 +80,8 @@ export const usersTableColumns: ColumnDef<IUser>[] = [
       );
     },
   },
-  {
-    id: "actions",
-    cell: ({ row }) => <DataTableRowActions row={row} />,
-  },
+  // {
+  //   id: "actions",
+  //   cell: ({ row }) => <DataTableRowActions row={row} />,
+  // },
 ];
