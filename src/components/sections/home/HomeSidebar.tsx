@@ -1,14 +1,5 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { SvgDrama } from "../../ui/svg/genras/SvgDrama";
-import { SvgComedy } from "../../ui/svg/genras/SvgComedy";
-import { SvgFamily } from "../../ui/svg/genras/SvgFamily";
-import { SvgHorror } from "../../ui/svg/genras/SvgHorror";
-import { SvgFantasy } from "../../ui/svg/genras/SvgFantasy";
-import { SvgThriller } from "../../ui/svg/genras/SvgThriller";
-import { SvgAction } from "../../ui/svg/genras/SvgAction";
-import { SvgAdventure } from "../../ui/svg/genras/SvgAdventure";
-import { BookmarkIcon, HomeIcon } from "@radix-ui/react-icons";
-import { SvgFire } from "../../ui/svg/SvgFire";
+import { BookmarkIcon } from "@radix-ui/react-icons";
 import { SvgActor } from "../../ui/svg/SvgActor";
 import { SvgReview } from "../../ui/svg/SvgReview";
 import {
@@ -24,61 +15,63 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { SvgLogo } from "@/components/ui/svg/SvgLogo";
+import { useQuery } from "@tanstack/react-query";
+import { getGenres } from "@/lib/queries/film";
 
-const genres = [
-  {
-    label: "Home",
-    link: "/",
-    icon: <HomeIcon className="mr-2 h-4 w-4" />,
-  },
-  {
-    label: "Comedy",
-    link: "/films/genres/1",
-    icon: <SvgComedy className="mr-2 h-4 w-4" />,
-  },
-  {
-    label: "Family friendly",
-    link: "/films/genres/2",
-    icon: <SvgFamily className="mr-2 h-4 w-4" />,
-  },
-  {
-    label: "Horror",
-    link: "/films/genres/3",
-    icon: <SvgHorror className="mr-2 h-4 w-4" />,
-  },
-  {
-    label: "Fantasy",
-    link: "/films/genres/4",
-    icon: <SvgFantasy className="mr-2 h-4 w-4" />,
-  },
-  {
-    label: "Thrillers",
-    link: "/films/genres/5",
-    icon: <SvgThriller className="mr-2 h-4 w-4" />,
-  },
-  {
-    label: "Action",
-    link: "/films/genres/6",
-    icon: <SvgAction className="mr-2 h-4 w-4" />,
-  },
-  {
-    label: "Melodramas",
-    link: "/films/genres/7",
-    icon: <SvgDrama className="mr-2 h-4 w-4" />,
-  },
-  {
-    label: "Adventures",
-    link: "/films/genres/8",
-    icon: <SvgAdventure className="mr-2 h-4 w-4" />,
-  },
-];
+// const genres = [
+//   {
+//     label: "Home",
+//     link: "/",
+//     icon: <HomeIcon className="w-4 h-4 mr-2" />,
+//   },
+//   {
+//     label: "Comedy",
+//     link: "/films/genres/1",
+//     icon: <SvgComedy className="w-4 h-4 mr-2" />,
+//   },
+//   {
+//     label: "Family friendly",
+//     link: "/films/genres/2",
+//     icon: <SvgFamily className="w-4 h-4 mr-2" />,
+//   },
+//   {
+//     label: "Horror",
+//     link: "/films/genres/3",
+//     icon: <SvgHorror className="w-4 h-4 mr-2" />,
+//   },
+//   {
+//     label: "Fantasy",
+//     link: "/films/genres/4",
+//     icon: <SvgFantasy className="w-4 h-4 mr-2" />,
+//   },
+//   {
+//     label: "Thrillers",
+//     link: "/films/genres/5",
+//     icon: <SvgThriller className="w-4 h-4 mr-2" />,
+//   },
+//   {
+//     label: "Action",
+//     link: "/films/genres/6",
+//     icon: <SvgAction className="w-4 h-4 mr-2" />,
+//   },
+//   {
+//     label: "Melodramas",
+//     link: "/films/genres/7",
+//     icon: <SvgDrama className="w-4 h-4 mr-2" />,
+//   },
+//   {
+//     label: "Adventures",
+//     link: "/films/genres/8",
+//     icon: <SvgAdventure className="w-4 h-4 mr-2" />,
+//   },
+// ];
 
 const library = [
-  {
-    label: "New",
-    link: "/films/new",
-    icon: <SvgFire className="mr-2 h-4 w-4" />,
-  },
+  // {
+  //   label: "New",
+  //   link: "/films/new",
+  //   icon: <SvgFire className="w-4 h-4 mr-2" />,
+  // },
   {
     label: "Favorites",
     link: "/favorites",
@@ -99,6 +92,12 @@ const library = [
 export function HomeSidebar() {
   const { open } = useSidebar();
   const location = useLocation();
+
+  const { data } = useQuery({
+    queryKey: ["genres"],
+    queryFn: () => getGenres(),
+  });
+
   return (
     <Sidebar collapsible="icon">
       <SidebarContent>
@@ -141,20 +140,20 @@ export function HomeSidebar() {
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {genres.map((genre) => (
-                <SidebarMenuItem key={genre.label}>
+              {data?.map((genre) => (
+                <SidebarMenuItem key={genre.id}>
                   <SidebarMenuButton
-                    isActive={location.pathname === genre.link}
+                    isActive={location.pathname === `/films/genres/${genre.id}`}
                     asChild
                   >
                     <NavLink
-                      to={genre.link}
+                      to={`/films/genres/${genre.id}`}
                       className={({ isActive }) =>
                         `inline-flex h-9 w-full items-center justify-start whitespace-nowrap rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 ${isActive ? "bg-accent text-accent-foreground" : ""}`
                       }
                     >
-                      {genre.icon}
-                      {genre.label}
+                      <img className="mr-2 h-4 w-4" src={genre.image} />
+                      {genre.name}
                     </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>

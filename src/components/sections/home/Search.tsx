@@ -2,7 +2,6 @@ import { Separator } from "@/components/ui/separator";
 
 import { FilmCard } from "@components/FilmCard";
 
-import { madeForYouAlbums } from "@/lib/data";
 import { motion } from "framer-motion";
 import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -12,10 +11,20 @@ import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { ScrollBar } from "@components/ui/scroll-area";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { ActorCard } from "@components/ActorCard";
+import { search } from "@/lib/queries/common";
+import { useQuery } from "@tanstack/react-query";
+import { SvgSpinner } from "@/components/ui/svg/SvgSpinner";
 
 export const Search = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [searchText, setSearchText] = useState("");
+  const [searchText, setSearchText] = useState(location.search);
+  const [queryText, setQueryText] = useState(location.search);
+
+  const { isLoading, data } = useQuery({
+    queryKey: ["search", queryText],
+    queryFn: ({ signal }) => search(queryText, signal),
+    enabled: queryText.length > 0,
+  });
 
   useEffect(() => {
     const URLSearchText = searchParams.get("query");
@@ -26,6 +35,16 @@ export const Search = () => {
     }
   }, [location.search]);
 
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setQueryText(searchText);
+      searchParams.set("query", searchText);
+      setSearchParams(searchParams);
+    }, 500);
+
+    return () => clearTimeout(timeout);
+  }, [searchText]);
+
   return (
     <motion.section
       className="col-span-3 lg:col-span-4"
@@ -34,8 +53,8 @@ export const Search = () => {
       exit={{ opacity: 0, transition: { duration: 0.2 } }}
       key={"home"}
     >
-      <div className="h-full px-4 py-6 lg:px-8">
-        <div className="flex items-center justify-between mb-2">
+      <div className="px-4 py-6 lg:px-8">
+        <div className="mb-2 flex items-center justify-between">
           <div className="space-y-1">
             <h2 className="text-2xl font-semibold tracking-tight">
               Search{" "}
@@ -70,52 +89,74 @@ export const Search = () => {
             className="flex items-center gap-2 px-3"
             variant="default"
           >
-            <MagnifyingGlassIcon className="w-6 h-6" />
+            <MagnifyingGlassIcon className="h-6 w-6" />
           </Button>
         </form>
         <Separator className="mb-4" />
-        <div className="mt-6 space-y-1">
-          <h2 className="text-2xl font-semibold tracking-tight">Actors</h2>
-        </div>
-        <Separator className="my-4" />
-        <div className="relative">
-          <ScrollArea>
-            <div className="flex pb-4 space-x-4">
-              {madeForYouAlbums.map((album) => (
-                <ActorCard
-                  key={album.name}
-                  album={album}
-                  className="w-[100px]"
-                  aspectRatio="square"
-                  width={100}
-                  height={100}
-                />
-              ))}
-            </div>
-            <ScrollBar orientation="horizontal" />
-          </ScrollArea>
-        </div>
-        <div className="mt-6 space-y-1">
-          <h2 className="text-2xl font-semibold tracking-tight">Films</h2>
-        </div>
-        <Separator className="my-4" />
-        <div className="relative">
-          <ScrollArea>
-            <div className="flex pb-4 space-x-4">
-              {madeForYouAlbums.map((album) => (
-                <FilmCard
-                  key={album.name}
-                  album={album}
-                  className="w-[150px]"
-                  aspectRatio="square"
-                  width={150}
-                  height={150}
-                />
-              ))}
-            </div>
-            <ScrollBar orientation="horizontal" />
-          </ScrollArea>
-        </div>
+        {isLoading && <SvgSpinner className="mx-auto h-10 w-10" />}
+        {queryText.length <= 0 && "Enter search text"}
+        {data &&
+          data.actors.length <= 0 &&
+          data.movies.length <= 0 &&
+          "Nothings found"}
+        {data && queryText.length > 0 && (
+          <>
+            {data.actors.length > 0 && (
+              <>
+                <div className="mt-6 space-y-1">
+                  <h2 className="text-2xl font-semibold tracking-tight">
+                    Actors
+                  </h2>
+                </div>
+                <Separator className="my-4" />
+                <div className="">
+                  <ScrollArea className="overflow-auto">
+                    <div className="flex space-x-4 pb-4">
+                      {data.actors.map((actor) => (
+                        <ActorCard
+                          key={actor.name}
+                          actor={actor}
+                          className="w-[150px] min-w-[150px]"
+                          aspectRatio="square"
+                          width={100}
+                          height={100}
+                        />
+                      ))}
+                    </div>
+                    <ScrollBar orientation="horizontal" />
+                  </ScrollArea>
+                </div>
+              </>
+            )}
+            {data.movies.length > 0 && (
+              <>
+                <div className="mt-6 space-y-1">
+                  <h2 className="text-2xl font-semibold tracking-tight">
+                    Films
+                  </h2>
+                </div>
+                <Separator className="my-4" />
+                <div className="relative">
+                  <ScrollArea className="overflow-auto">
+                    <div className="flex space-x-4 pb-4">
+                      {data.movies.map((film) => (
+                        <FilmCard
+                          key={film.name}
+                          film={film}
+                          className="min-w-[150px]"
+                          aspectRatio="square"
+                          width={150}
+                          height={150}
+                        />
+                      ))}
+                    </div>
+                    <ScrollBar orientation="horizontal" />
+                  </ScrollArea>
+                </div>
+              </>
+            )}
+          </>
+        )}
       </div>
     </motion.section>
   );

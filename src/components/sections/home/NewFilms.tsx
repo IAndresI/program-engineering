@@ -1,9 +1,6 @@
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 
-import { FilmCard } from "@components/FilmCard";
-
-import { listenNowAlbums, madeForYouAlbums } from "@/lib/data";
 import { motion } from "framer-motion";
 
 export const NewFilms = () => {
@@ -27,8 +24,8 @@ export const NewFilms = () => {
         <Separator className="my-4" />
         <div className="relative">
           <ScrollArea>
-            <div className="flex pb-4 space-x-4">
-              {listenNowAlbums.map((album) => (
+            <div className="flex space-x-4 pb-4">
+              {/* {listenNowAlbums.map((album) => (
                 <FilmCard
                   key={album.name}
                   album={album}
@@ -37,7 +34,7 @@ export const NewFilms = () => {
                   width={250}
                   height={330}
                 />
-              ))}
+              ))} */}
             </div>
             <ScrollBar orientation="horizontal" />
           </ScrollArea>
@@ -48,8 +45,8 @@ export const NewFilms = () => {
         <Separator className="my-4" />
         <div className="relative">
           <ScrollArea>
-            <div className="flex pb-4 space-x-4">
-              {madeForYouAlbums.map((album) => (
+            <div className="flex space-x-4 pb-4">
+              {/* {madeForYouAlbums.map((album) => (
                 <FilmCard
                   key={album.name}
                   album={album}
@@ -58,7 +55,7 @@ export const NewFilms = () => {
                   width={150}
                   height={150}
                 />
-              ))}
+              ))} */}
             </div>
             <ScrollBar orientation="horizontal" />
           </ScrollArea>
@@ -69,8 +66,8 @@ export const NewFilms = () => {
         <Separator className="my-4" />
         <div className="relative">
           <ScrollArea>
-            <div className="flex pb-4 space-x-4">
-              {madeForYouAlbums.map((album) => (
+            <div className="flex space-x-4 pb-4">
+              {/* {madeForYouAlbums.map((album) => (
                 <FilmCard
                   key={album.name}
                   album={album}
@@ -79,7 +76,7 @@ export const NewFilms = () => {
                   width={150}
                   height={150}
                 />
-              ))}
+              ))} */}
             </div>
             <ScrollBar orientation="horizontal" />
           </ScrollArea>
@@ -90,8 +87,8 @@ export const NewFilms = () => {
         <Separator className="my-4" />
         <div className="relative">
           <ScrollArea>
-            <div className="flex pb-4 space-x-4">
-              {madeForYouAlbums.map((album) => (
+            <div className="flex space-x-4 pb-4">
+              {/* {madeForYouAlbums.map((album) => (
                 <FilmCard
                   key={album.name}
                   album={album}
@@ -100,7 +97,7 @@ export const NewFilms = () => {
                   width={150}
                   height={150}
                 />
-              ))}
+              ))} */}
             </div>
             <ScrollBar orientation="horizontal" />
           </ScrollArea>

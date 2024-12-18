@@ -1,12 +1,21 @@
 import { Separator } from "@/components/ui/separator";
 import { motion } from "framer-motion";
-import { Button } from "@components/ui/button";
-import { Link } from "react-router-dom";
-import { StarFilledIcon } from "@radix-ui/react-icons";
-
-const reviews = [1, 2, 3, 4, 5, 6];
+import { useUser } from "@clerk/clerk-react";
+import { useQuery } from "@tanstack/react-query";
+import { UserReviewSkeleton } from "@/components/skeletons/UserReviewSkeleton";
+import { getAllReviews } from "@/lib/queries/review";
+import { UserReviewCard } from "@/components/UserReviewCard";
 
 export const UserReviews = () => {
+  const { user } = useUser();
+
+  const { isLoading, data } = useQuery({
+    queryKey: ["reviews"],
+    queryFn: () => getAllReviews(),
+  });
+
+  const userReviews = data?.filter((review) => review.user === user?.id);
+
   return (
     <motion.section
       className="col-span-3 lg:col-span-4"
@@ -26,57 +35,21 @@ export const UserReviews = () => {
         <Separator className="my-4" />
 
         <div className="grid gap-5 pb-4">
-          {reviews.map((review, i, arr) => (
-            <div>
-              <div className="mb-3 flex justify-between text-xl font-semibold">
-                Oppenheimer{" "}
-                <div className="flex items-center gap-1 font-semibold">
-                  <StarFilledIcon className="h-5 w-5 text-yellow-500" /> 9.5
-                </div>
-              </div>
-              <div className="flex gap-5" key={review}>
-                <div className="flex w-[150px] min-w-[150px] flex-col gap-3">
-                  <Link
-                    to="/film/1"
-                    className="block overflow-hidden rounded-md"
-                  >
-                    <img
-                      src="https://placehold.jp/250x333.png"
-                      alt={"film"}
-                      width={150}
-                      height={200}
-                      className={
-                        "block aspect-[3/4] overflow-hidden object-cover transition-all hover:scale-105"
-                      }
-                    />
-                  </Link>
-
-                  <div className="grid grid-cols-2 gap-3">
-                    <Button className="text-xs" variant="secondary">
-                      Change
-                    </Button>
-                    <Button className="text-xs" variant="destructive">
-                      Delete
-                    </Button>
-                  </div>
-                </div>
-                <p className="pr-5 text-sm text-muted-foreground">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Error eligendi explicabo, quisquam dolorem expedita eveniet
-                  quam omnis corrupti quo, earum porro dolores totam. Magni
-                  porro saepe necessitatibus nemo asperiores debitis? Dicta
-                  corporis sit aut reiciendis iusto maiores magnam deleniti.
-                  Vel, expedita a soluta eveniet aperiam dignissimos quas optio,
-                  labore veniam et corrupti at? Velit voluptatem omnis ea
-                  dolorum pariatur facere. Vitae at iusto aut incidunt explicabo
-                  alias aliquid fuga quasi nam autem quos, culpa cumque quam
-                  deleniti, ea rerum perspiciatis veniam! Accusamus perferendis,
-                  architecto harum deserunt earum voluptates doloribus in.
-                </p>
-              </div>
-              {i !== arr.length - 1 && <Separator className="mt-5" />}
-            </div>
-          ))}
+          {isLoading
+            ? new Array(5)
+                .fill(1)
+                .map((_, i, arr) => (
+                  <UserReviewSkeleton
+                    bottomSeparator={i !== arr.length - 1}
+                    key={`skeleton_${i}`}
+                  />
+                ))
+            : userReviews?.map((review, i, arr) => (
+                <>
+                  <UserReviewCard key={review.id} review={review} />
+                  {i !== arr.length - 1 && <Separator className="mt-5" />}
+                </>
+              ))}
         </div>
       </div>
     </motion.section>

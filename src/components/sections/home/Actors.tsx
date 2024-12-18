@@ -1,10 +1,17 @@
 import { Separator } from "@/components/ui/separator";
 
-import { madeForYouAlbums } from "@/lib/data";
 import { motion } from "framer-motion";
 import { ActorCard } from "@components/ActorCard";
+import { useQuery } from "@tanstack/react-query";
+import { getActors } from "@/lib/queries/actors";
+import { ActorSkeleton } from "@/components/skeletons/ActorSkeleton";
 
 export const Actors = () => {
+  const { isLoading, data, isSuccess } = useQuery({
+    queryKey: ["actors"],
+    queryFn: getActors,
+  });
+
   return (
     <motion.section
       className="col-span-3 lg:col-span-4"
@@ -22,17 +29,27 @@ export const Actors = () => {
         <Separator className="my-4" />
 
         <div className="grid grid-cols-[repeat(auto-fit,minmax(100px,150px))] place-items-center justify-between gap-5 pb-4">
-          {[...madeForYouAlbums, ...madeForYouAlbums, ...madeForYouAlbums].map(
-            (album) => (
+          {isLoading &&
+            new Array(14)
+              .fill(1)
+              .map((_, i) => (
+                <ActorSkeleton
+                  className="h-[150px] w-[150px]"
+                  key={`skeleton_actor_${i}`}
+                />
+              ))}
+          {data &&
+            data.length > 0 &&
+            data.map((actor) => (
               <ActorCard
-                key={album.name}
-                album={album}
+                key={actor.name}
+                actor={actor}
                 aspectRatio="square"
                 width={100}
                 height={100}
               />
-            ),
-          )}
+            ))}
+          {isSuccess && data && data.length === 0 && "No Info"}
         </div>
       </div>
     </motion.section>

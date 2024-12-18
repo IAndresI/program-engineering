@@ -11,6 +11,7 @@ import { AuthenticationPage } from "./components/pages/AuthenticationPage.tsx";
 import { AdminPage } from "./components/pages/AdminPage.tsx";
 import { HomePage } from "./components/pages/HomePage.tsx";
 import { ThemeProvider } from "./components/layouts/ThemeProvider.tsx";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const router = createBrowserRouter([
   {
@@ -51,12 +52,16 @@ if (!PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
 }
 
+const queryClient = new QueryClient();
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
-      <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
-        <RouterProvider router={router} />
-      </ClerkProvider>
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
+        <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
+          <RouterProvider router={router} />
+        </ClerkProvider>
+      </ThemeProvider>
+    </QueryClientProvider>
   </StrictMode>,
 );

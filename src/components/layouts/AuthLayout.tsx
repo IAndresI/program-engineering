@@ -1,21 +1,39 @@
 import { ClerkLoaded, ClerkLoading, useUser } from "@clerk/clerk-react";
-import { useEffect } from "react";
+
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { SvgLogo } from "@/components/ui/svg/SvgLogo";
+import { useEffect } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { authUser } from "@/lib/queries/user";
 
 export const AuthLayout = () => {
-  const { isSignedIn, isLoaded } = useUser();
+  const { isSignedIn, isLoaded, user } = useUser();
   const navigate = useNavigate();
   const location = useLocation();
+
+  const { mutate } = useMutation({
+    mutationFn: authUser,
+  });
 
   const locationArr = location.pathname?.split("/") ?? [];
 
   useEffect(() => {
-    if (!isSignedIn && isLoaded) {
-      return navigate("/authentication");
+    if (isSignedIn && user) {
+      console.log(user);
+
+      mutate({
+        name: user.fullName || "",
+        avatar: user.imageUrl,
+        email: user.emailAddresses[0].emailAddress,
+        id: user.id,
+      });
     }
-  }, [isSignedIn, isLoaded]);
+  }, [isSignedIn, user]);
+
+  if (!isSignedIn && isLoaded) {
+    navigate("/authentication");
+  }
 
   return (
     <AnimatePresence mode="wait">
