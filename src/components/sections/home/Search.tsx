@@ -143,7 +143,7 @@ export const Search = () => {
                         <FilmCard
                           key={film.name}
                           film={film}
-                          className="min-w-[150px]"
+                          className="w-[150px] min-w-[150px]"
                           aspectRatio="square"
                           width={150}
                           height={150}

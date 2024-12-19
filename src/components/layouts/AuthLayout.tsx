@@ -29,11 +29,10 @@ export const AuthLayout = () => {
         id: user.id,
       });
     }
+    if (!isSignedIn && isLoaded) {
+      navigate("/authentication");
+    }
   }, [isSignedIn, user]);
-
-  if (!isSignedIn && isLoaded) {
-    navigate("/authentication");
-  }
 
   return (
     <AnimatePresence mode="wait">
