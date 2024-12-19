@@ -160,12 +160,12 @@ export const Film = () => {
       exit={{ opacity: 0, transition: { duration: 0.2 } }}
       key={"home"}
     >
-      {isFilmLoading && <SvgSpinner className="mx-auto h-10 w-10" />}
+      {isFilmLoading && <SvgSpinner className="w-10 h-10 mx-auto" />}
       {film && user ? (
         <div className="h-full px-4 py-6 lg:px-8">
           <CustomBreadcrumbs
             className="mb-4"
-            crumbs={[{ label: "Home", link: "/" }, { label: "Oppenheimer" }]}
+            crumbs={[{ label: "Home", link: "/" }, { label: film.name }]}
           />
           <div className="flex items-center justify-between">
             <div className="flex gap-8">
@@ -174,7 +174,7 @@ export const Film = () => {
                 width={250}
                 height={330}
                 className={
-                  "aspect-[3/4] h-auto w-auto max-w-[330px] overflow-hidden rounded-md object-cover transition-all"
+                  "aspect-[3/4] h-fit min-w-[330px] max-w-[330px] overflow-hidden rounded-md object-cover transition-all"
                 }
               />
 
@@ -195,7 +195,7 @@ export const Film = () => {
                 </div>
                 <div className="flex gap-5">
                   <div className="flex items-center gap-1 text-5xl font-semibold">
-                    <StarFilledIcon className="h-10 w-10 text-yellow-500" />{" "}
+                    <StarFilledIcon className="w-10 h-10 text-yellow-500" />{" "}
                     {film.rating}
                   </div>
 
@@ -205,18 +205,18 @@ export const Film = () => {
                         className="text-md flex h-full w-full max-w-[250px] gap-2"
                         variant="outline"
                       >
-                        <PlayIcon className="h-5 w-5" />
+                        <PlayIcon className="w-5 h-5" />
                         Trailer
                       </Button>
                     </DialogTrigger>
                     <DialogContent className="flex h-full max-h-[85svh] max-w-[85vw] flex-col">
                       <DialogHeader>
-                        <DialogTitle className="text-center text-3xl">
+                        <DialogTitle className="text-3xl text-center">
                           {film.name}
                         </DialogTitle>
                       </DialogHeader>
                       <iframe
-                        className="h-full w-full"
+                        className="w-full h-full"
                         src={film.trailer_link}
                         frameBorder="0"
                         allow="clipboard-write; autoplay"
@@ -241,7 +241,7 @@ export const Film = () => {
                       isAddingInfavorite ||
                       isRemovingfavorite
                     }
-                    className="h-full w-12 p-0 px-5"
+                    className="w-12 h-full p-0 px-5"
                     variant="outline"
                   >
                     {isInFavorite ? (
@@ -260,7 +260,7 @@ export const Film = () => {
           </div>
           <div className="relative">
             <ScrollArea>
-              <div className="flex space-x-4 pb-4">
+              <div className="flex pb-4 space-x-4">
                 {film.actors.map((actor) => (
                   <ActorCard
                     key={actor.name}
@@ -280,11 +280,11 @@ export const Film = () => {
             <h2 className="mb-4 text-2xl font-semibold tracking-tight">
               Reviews
             </h2>
-            {isReviewsLoading && <SvgSpinner className="mx-auto h-10 w-10" />}
+            {isReviewsLoading && <SvgSpinner className="w-10 h-10 mx-auto" />}
 
             <div className="grid grid-cols-[1fr,360px]">
               {filmReviews && filmReviews?.length > 0 ? (
-                <div className="grid h-fit border-r">
+                <div className="grid border-r h-fit">
                   {filmReviews.map((review, i, arr) => (
                     <div className="grid gap-3" key={review.id}>
                       <div className="flex items-center justify-between">
@@ -301,7 +301,7 @@ export const Film = () => {
                           <div className="font-medium">{review.user.name}</div>
                         </div> */}
                         <div className="flex items-center gap-1 pr-5 font-semibold">
-                          <StarFilledIcon className="h-4 w-4 text-yellow-500" />{" "}
+                          <StarFilledIcon className="w-4 h-4 text-yellow-500" />{" "}
                           {review.rating}
                         </div>
                       </div>
@@ -324,9 +324,9 @@ export const Film = () => {
                 <form onSubmit={onReviewSubmit} className="grid gap-4">
                   <div className="flex">
                     <Rating
-                      emptyIcon={<StarIcon className="inline-block h-8 w-8" />}
+                      emptyIcon={<StarIcon className="inline-block w-8 h-8" />}
                       fillIcon={
-                        <StarFilledIcon className="inline-block h-8 w-8" />
+                        <StarFilledIcon className="inline-block w-8 h-8" />
                       }
                       iconsCount={10}
                       transition
